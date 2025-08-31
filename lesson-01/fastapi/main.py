@@ -1,3 +1,4 @@
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import Dict, Any
@@ -50,6 +51,60 @@ async def get_user(user_id: int):
         "id": user_id,
         "name": f"User {user_id}",
         "email": f"user{user_id}@example.com"
+    }
+
+@app.post("/api/execute")
+async def execute_task(data):
+    # حالت 1: داده مستقیم از Google Sheets (آرایه)
+    if isinstance(data, list) and len(data) > 0 and isinstance(data[0], dict) and "price" in data[0]:
+        prices = [item["price"] for item in data]
+        names = [item["name"] for item in data]
+        
+        result = {
+            "departments": names,
+            "prices": prices,
+            "total_price": sum(prices),
+            "average_price": round(sum(prices) / len(prices), 2),
+            "highest": {"name": names[prices.index(max(prices))], "price": max(prices)},
+            "lowest": {"name": names[prices.index(min(prices))], "price": min(prices)},
+            "department_count": len(data)
+        }
+        
+        return {
+            "status": "success",
+            "message": "Google Sheets data processed",
+            "data_source": "Excel/Google Sheets",
+            "analysis": result
+        }
+    
+    # حالت 2: فرمت method/params (از edit file یا manual)
+    elif isinstance(data, dict) and "method" in data:
+        method = data.get("method")
+        params = data.get("params", {})
+        
+        if method == "create_from_list":
+            numbers = params.get("data", [])
+            result = {
+                "sum": sum(numbers),
+                "average": round(sum(numbers) / len(numbers), 2) if numbers else 0,
+                "max": max(numbers) if numbers else 0,
+                "min": min(numbers) if numbers else 0,
+                "count": len(numbers)
+            }
+            return {
+                "status": "success",
+                "method": method,
+                "data_source": "Manual/File",
+                "input_data": numbers,
+                "result": result
+            }
+    
+    # حالت 3: هر داده دیگری
+    return {
+        "status": "received",
+        "message": "Data received successfully",
+        "input_data": data,
+        "data_type": str(type(data))
     }
 
 if __name__ == "__main__":
