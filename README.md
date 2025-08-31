@@ -1,39 +1,39 @@
 # n8n + FastAPI Integration Course
 
-دوره یکپارچه‌سازی n8n با FastAPI برای اتوماسیون و API های پیشرفته
+Complete course for integrating n8n with FastAPI for automation and advanced APIs
 
-## ساختار دروس
+## Lesson Structure
 
-### درس ۱: راه‌اندازی اولیه
-- FastAPI پایه
+### Lesson 1: Initial Setup
+- Basic FastAPI
 - Docker setup  
 - n8n integration
-- **فولدر**: `lesson-01/`
+- **Folder**: `lesson-01/`
 
-### درس ۲: API های پیشرفته
+### Lesson 2: Advanced APIs
 - User management
 - Task management
 - Database simulation
-- **فولدر**: `lesson-02/`
+- **Folder**: `lesson-02/`
 
-### درس ۳: پایگاه داده واقعی
+### Lesson 3: Real Database
 - PostgreSQL integration
 - SQLAlchemy ORM
-- **فولدر**: `lesson-03/`
+- **Folder**: `lesson-03/`
 
-### درس ۴: Authentication & Security  
+### Lesson 4: Authentication & Security  
 - JWT tokens
 - User authentication
-- **فولدر**: `lesson-04/`
+- **Folder**: `lesson-04/`
 
-### درس ۵: پروژه نهایی
+### Lesson 5: Final Project
 - Complete application
 - Production deployment
-- **فولدر**: `lesson-05/`
+- **Folder**: `lesson-05/`
 
-## نحوه اجرا
+## How to Run
 
-هر درس در فولدر جداگانه:
+Each lesson in separate folder:
 ```bash
 cd lesson-01
 docker-compose up --build
@@ -41,9 +41,9 @@ docker-compose up --build
 
 ## Git Workflow
 
-برای هر درس:
+For each lesson:
 ```bash
 git add .
-git commit -m "Lesson X: توضیحات تغییرات"
+git commit -m "Lesson X: Description of changes"
 git push
 ```
